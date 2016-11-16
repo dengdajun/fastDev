@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CourseVidoMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into M_COURSEVIDO(
+			NAME,	
+			LOGO_PATH,	
+			VIDO_PATH,	
+			VIDO_DESC,	
+			VIDO_SORT,	
+			COURSE_TYPE_ID,	
+			VIDO_TIME,	
+			COURSEVIDO_ID
+		) values (
+			#{NAME},	
+			#{LOGO_PATH},	
+			#{VIDO_PATH},	
+			#{VIDO_DESC},	
+			#{VIDO_SORT},	
+			#{COURSE_TYPE_ID},	
+			#{VIDO_TIME},	
+			#{COURSEVIDO_ID}
+		)
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from M_COURSEVIDO
+		where 
+			COURSEVIDO_ID = #{COURSEVIDO_ID}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  M_COURSEVIDO
+			set 
+				NAME = #{NAME},
+				LOGO_PATH = #{LOGO_PATH},
+				VIDO_PATH = #{VIDO_PATH},
+				VIDO_DESC = #{VIDO_DESC},
+				VIDO_SORT = #{VIDO_SORT},
+				COURSE_TYPE_ID = #{COURSE_TYPE_ID},
+				VIDO_TIME = #{VIDO_TIME},
+			COURSEVIDO_ID = COURSEVIDO_ID
+			where 
+				COURSEVIDO_ID = #{COURSEVIDO_ID}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			NAME,	
+			LOGO_PATH,	
+			VIDO_PATH,	
+			VIDO_DESC,	
+			VIDO_SORT,	
+			COURSE_TYPE_ID,	
+			VIDO_TIME,	
+			COURSEVIDO_ID
+		from 
+			M_COURSEVIDO
+		where 
+			COURSEVIDO_ID = #{COURSEVIDO_ID}
+	</select>
+	
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.NAME,	
+				a.LOGO_PATH,	
+				a.VIDO_PATH,	
+				a.VIDO_DESC,	
+				a.VIDO_SORT,	
+				a.COURSE_TYPE_ID,	
+				a.VIDO_TIME,	
+				a.COURSEVIDO_ID,
+				m.NAME TYPE_NAME
+		from 
+				M_COURSEVIDO a left join M_COURSETYPE m on a.COURSE_TYPE_ID = m.COURSETYPE_ID
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				a.NAME,	
+				a.LOGO_PATH,	
+				a.VIDO_PATH,	
+				a.VIDO_DESC,	
+				a.VIDO_SORT,	
+				a.COURSE_TYPE_ID,	
+				a.VIDO_TIME,	
+				a.COURSEVIDO_ID
+		from 
+				M_COURSEVIDO a
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from M_COURSEVIDO
+		where 
+			COURSEVIDO_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>

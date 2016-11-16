@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SchoolInformationMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into M_SCHOOLINFORMATION(
+			QQ,	
+			QQGROUP,	
+			ADDRESS,	
+			ENVIRONMENT,	
+			INTRODUCE,	
+			MOBILE,	
+			ROUTE,	
+			ROUTEDETAILS,	
+			TEL,	
+			SCHOOLINFORMATION_ID
+		) values (
+			#{QQ},	
+			#{QQGROUP},	
+			#{ADDRESS},	
+			#{ENVIRONMENT},	
+			#{INTRODUCE},	
+			#{MOBILE},	
+			#{ROUTE},	
+			#{ROUTEDETAILS},	
+			#{TEL},	
+			#{SCHOOLINFORMATION_ID}
+		)
+	</insert>
+	
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from M_SCHOOLINFORMATION
+		where 
+			SCHOOLINFORMATION_ID = #{SCHOOLINFORMATION_ID}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update  M_SCHOOLINFORMATION
+			set 
+				QQ = #{QQ},
+				QQGROUP = #{QQGROUP},
+				ADDRESS = #{ADDRESS},
+				ENVIRONMENT = #{ENVIRONMENT},
+				INTRODUCE = #{INTRODUCE},
+				MOBILE = #{MOBILE},
+				ROUTE = #{ROUTE},
+				ROUTEDETAILS = #{ROUTEDETAILS},
+				TEL = #{TEL},
+			SCHOOLINFORMATION_ID = SCHOOLINFORMATION_ID
+			where 
+				SCHOOLINFORMATION_ID = #{SCHOOLINFORMATION_ID}
+	</update>
+	
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+			QQ,	
+			QQGROUP,	
+			ADDRESS,	
+			ENVIRONMENT,	
+			INTRODUCE,	
+			MOBILE,	
+			ROUTE,	
+			ROUTEDETAILS,	
+			TEL,	
+			SCHOOLINFORMATION_ID
+		from 
+			M_SCHOOLINFORMATION
+		where 
+			SCHOOLINFORMATION_ID = #{SCHOOLINFORMATION_ID}
+	</select>
+	
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+				a.QQ,	
+				a.QQGROUP,	
+				a.ADDRESS,	
+				a.ENVIRONMENT,	
+				a.INTRODUCE,	
+				a.MOBILE,	
+				a.ROUTE,	
+				a.ROUTEDETAILS,	
+				a.TEL,	
+				a.SCHOOLINFORMATION_ID
+		from 
+				M_SCHOOLINFORMATION a
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+				a.QQ,	
+				a.QQGROUP,	
+				a.ADDRESS,	
+				a.ENVIRONMENT,	
+				a.INTRODUCE,	
+				a.MOBILE,	
+				a.ROUTE,	
+				a.ROUTEDETAILS,	
+				a.TEL,	
+				a.SCHOOLINFORMATION_ID
+		from 
+				M_SCHOOLINFORMATION a
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from M_SCHOOLINFORMATION
+		where 
+			SCHOOLINFORMATION_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>
