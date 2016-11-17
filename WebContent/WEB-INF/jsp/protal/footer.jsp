@@ -11,9 +11,9 @@
     <div class="main clear">
         <div class="img"><img src="static_taige/img/footer-login.png" alt=""/></div>
         <div class="address">
-            <p><span>电话：</span><span>test</span><span>test</span></p>
-            <p><span>QQ: </span><span>test</span>test<span>test</span> </p>
-            <p><span>地址：</span><b class="address-text">test</b></p>
+            <p><span>电话：</span><span>${information.MOBILE}</span><span>${information.TEL}</span></p>
+            <p><span>QQ: </span><span>${information.QQ}</span>QQ群<span>${information.QQ}</span> </p>
+            <p><span>地址：</span><b class="address-text">${information.ROUTEDETAILS}</b></p>
         </div>
         <div class="about">
             <p>关于我们：</p>

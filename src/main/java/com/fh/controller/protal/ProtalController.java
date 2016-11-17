@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,8 @@ import com.fh.controller.base.BaseController;
 import com.fh.service.admin.banner.BannerService;
 import com.fh.service.admin.homevido.HomeVidoService;
 import com.fh.service.admin.newssting.NewsStingService;
+import com.fh.service.admin.qqseting.QqSetingService;
+import com.fh.service.admin.schoolinformation.SchoolInformationService;
 import com.fh.util.PageData;
 
 @Controller
@@ -25,17 +28,32 @@ public class ProtalController extends BaseController {
 	@Resource(name="bannerService")
 	private BannerService bannerService;//附件service
 	@Resource(name="newsstingService")
-	private NewsStingService newsstingService;//新闻service
+	private NewsStingService newsstingService;//战报service
 	@Resource(name="homevidoService")
 	private HomeVidoService homevidoService;//首页视频service
-	
+	@Resource(name="schoolinformationService")
+	private SchoolInformationService schoolinformationService;//学校信息service
+	@Resource(name="qqsetingService")
+	private QqSetingService qqsetingService;//qq咨询设置
 	/**
 	 * qq广告,学校footer部分，位公用部分，这个controller每个请求都会进行查询
 	 */
 	@ModelAttribute
 	public void comm(){
-		
-		
+		PageData pd = new PageData();
+		HttpServletRequest request=getRequest();
+		try {
+			List<PageData> information=schoolinformationService.listAll(pd);
+			if(null!=information&&information.size()>0){
+				request.setAttribute("information", information.get(0).getMap());
+			}
+			List<PageData> qqSet=qqsetingService.listAll(pd);
+			if(null!=qqSet&&qqSet.size()>0){
+				request.setAttribute("qqSet", qqSet.get(0).getMap());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * 首页跳转并进行数据加载
@@ -45,7 +63,7 @@ public class ProtalController extends BaseController {
 		ModelAndView mv=getModelAndView();
 		mv.setViewName("protal/index");
 		PageData pd = new PageData();
-		List<Map<String,Object>> attachments=new ArrayList<Map<String,Object>>();
+		List<Map<String,Object>> homePics=new ArrayList<Map<String,Object>>();
 		List<Map<String,Object>> newsresult=new ArrayList<Map<String,Object>>();
 		try {
 			//图片留空方法
@@ -65,9 +83,9 @@ public class ProtalController extends BaseController {
 //				attachments.add(list3.get(0).getMap());
 //			}
 //			死数据代码
-			attachments.add(new HashMap<String,Object>(){{put("PATH","static_taige/img/banner1.jpg");}});
-			attachments.add(new HashMap<String,Object>(){{put("PATH","static_taige/img/banner2.png");}});
-			attachments.add(new HashMap<String,Object>(){{put("PATH","static_taige/img/banner3.png");}});
+			homePics.add(new HashMap<String,Object>(){{put("PATH","static_taige/img/banner1.jpg");}});
+			homePics.add(new HashMap<String,Object>(){{put("PATH","static_taige/img/banner2.png");}});
+			homePics.add(new HashMap<String,Object>(){{put("PATH","static_taige/img/banner3.png");}});
 //			最新战报的查询
 //			List<PageData> news=newsstingService.listAll(new PageData());
 //			for(PageData page:news){
@@ -76,15 +94,14 @@ public class ProtalController extends BaseController {
 //			死数据代码
 			newsresult.add(new HashMap<String,Object>(){{put("TITLE","测试");}});
 			List<PageData> videolist=homevidoService.listAll(new PageData());
-			getModelAndView().addObject("news",newsresult);
 			if(null!=videolist&&videolist.size()>0){
-//				mv.addObject("homeVideo",videolist.get(0).getMap());
+//				mv.addObject("home_video",videolist.get(0).getMap());
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mv.addObject("attachment", attachments);
+		mv.addObject("homePics", homePics);
 		mv.addObject("news",newsresult);
 		return mv;
 	}	

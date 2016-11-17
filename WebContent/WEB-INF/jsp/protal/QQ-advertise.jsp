@@ -11,9 +11,9 @@
     <div class="con clear">
         <img src="static_taige/img/QQ-ad.png" alt=""/>
         <div class="text">
-            <h2></h2>
-            <p></p>
-            <span></span>
+            <h2>免费在线咨询</h2>
+            <p>${qqSet.QQ_CONTENT}</p>
+            <span>工作时间：10:00-22:00</span>
         </div>
     </div>
     <div class="bottom clear">

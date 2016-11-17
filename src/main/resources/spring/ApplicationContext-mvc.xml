@@ -17,6 +17,7 @@
 	<mvc:resources mapping="/admin/**" location="/,/admin/" />
 	<mvc:resources mapping="/protal/**" location="/,/protal/" />
 	<mvc:resources mapping="/static/**" location="/,/static/" />
+	<mvc:resources mapping="/static_taige/**" location="/,/static_taige/" />
 	<mvc:resources mapping="/plugins/**" location="/,/plugins/" />
 	<mvc:resources mapping="/uploadFiles/**" location="/,/uploadFiles/" /> 
 

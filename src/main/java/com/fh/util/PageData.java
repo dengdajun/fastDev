@@ -15,6 +15,14 @@ public class PageData extends HashMap implements Map{
 	Map map = null;
 	HttpServletRequest request;
 	
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
 	public PageData(HttpServletRequest request){
 		this.request = request;
 		Map properties = request.getParameterMap();

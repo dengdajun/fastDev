@@ -26,7 +26,7 @@
 
         <div id="solid" style="height: auto" class="img">
             <ul>
-            	<c:forEach items="${attachment}" var="item">
+            	<c:forEach items="${homePics}" var="item">
 	            	 <a href="">
 	                    <li>
 	                        <img src="${item.PATH}"/>
@@ -63,10 +63,10 @@
                         <a href="<%=path%>/protal/videos">Videos</a>
                     </p>
                 </aside>
-	            <c:if test="${not empty homeVideo}">
+	            <c:if test="${not empty home_video}">
 	                <aside class="aside2">
 		                <video autoplay="true" controls="controls" loop="true">
-		                        <source src="/${home_video.filePath}" type="video/mp4"/>
+		                        <source src="/${home_video.VIDO_URL}" type="video/mp4"/>
 		                    </video>
 		              </aside>
 		          </c:if>
